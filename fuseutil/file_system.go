@@ -236,6 +236,9 @@ func (s *fileSystemServer) handleOp(
 
 	case *fuseops.FallocateOp:
 		err = s.fs.Fallocate(ctx, typed)
+
+	case *fuseops.UnknownOp:
+		err = fuse.ENOSYS
 	}
 
 	c.Reply(ctx, err)
